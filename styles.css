@@ -73,6 +73,13 @@ button:hover {
     transform: scale(1.05);
 }
 
+#preview img {
+    max-width: 100%;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
 #result img {
     max-width: 100%;
     margin-top: 20px;
@@ -125,6 +132,23 @@ button:hover {
     margin: 10px 0;
     font-size: 1.2em;
     color: #555;
+}
+
+#progressBar {
+    width: 100%;
+    background-color: #ddd;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+#progress {
+    width: 0%;
+    height: 30px;
+    background-color: #2ecc71;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 30px;
+    color: white;
 }
 
 /* Медиа-запросы для мобильных устройств */

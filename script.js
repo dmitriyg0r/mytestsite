@@ -2,13 +2,24 @@ document.getElementById('fileInput').addEventListener('change', (event) => {
     const file = event.target.files[0];
     const compressBtn = document.getElementById('compressBtn');
     const originalSizeElement = document.getElementById('originalSize');
+    const preview = document.getElementById('preview');
 
     if (file) {
         originalSizeElement.textContent = `Original Size: ${(file.size / 1024 / 1024).toFixed(2)} MB`;
         compressBtn.style.display = 'inline';
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            preview.innerHTML = '';
+            preview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
     } else {
         originalSizeElement.textContent = '';
         compressBtn.style.display = 'none';
+        preview.innerHTML = '';
     }
 });
 
@@ -24,8 +35,18 @@ document.getElementById('compressBtn').addEventListener('click', async () => {
     const options = {
         maxSizeMB: 1, // Максимальный размер в мегабайтах
         maxWidthOrHeight: 1024, // Максимальная ширина или высота
-        useWebWorker: true
+        useWebWorker: true,
+        onProgress: (progress) => {
+            const progressBar = document.getElementById('progress');
+            progressBar.style.width = `${progress}%`;
+            progressBar.textContent = `${progress}%`;
+        }
     };
+
+    // Показать прогресс-бар и скрыть кнопку сжатия
+    const progressBar = document.getElementById('progressBar');
+    progressBar.style.display = 'block';
+    document.getElementById('compressBtn').style.display = 'none';
 
     // Показать загрузочную анимацию
     const loadingElement = document.getElementById('loading');
@@ -55,7 +76,9 @@ document.getElementById('compressBtn').addEventListener('click', async () => {
     } catch (error) {
         console.error('Error compressing image:', error);
     } finally {
-        // Скрыть загрузочную анимацию
+        // Скрыть загрузочную анимацию и прогресс-бар
         loadingElement.style.display = 'none';
+        progressBar.style.display = 'none';
+        document.getElementById('compressBtn').style.display = 'inline';
     }
 });
