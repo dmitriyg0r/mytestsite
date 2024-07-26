@@ -9,12 +9,12 @@
 <body>
     <div class="container">
         <h1>Image Compressor</h1>
-        <input type="file" id="fileInput" accept="image/*">
+        <div class="file-input">
+            <input type="file" id="fileInput" accept="image/*">
+            <label for="fileInput">Choose file</label>
+        </div>
         <button id="compressBtn">Compress Image</button>
         <div id="result"></div>
         <button id="downloadBtn" style="display: none;">Download Compressed Image</button>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@1.0.17/dist/browser-image-compression.js"></script>
-    <script src="script.js"></script>
-</body>
-</html>
+    <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@1.0.17/dist
