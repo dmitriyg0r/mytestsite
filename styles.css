@@ -1,5 +1,5 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Roboto', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,11 +48,12 @@ h1 {
     color: white;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .file-input label:hover {
     background-color: #27ae60;
+    transform: scale(1.05);
 }
 
 button {
@@ -64,11 +65,12 @@ button {
     border-radius: 5px;
     background-color: #3498db;
     color: white;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 button:hover {
     background-color: #2980b9;
+    transform: scale(1.05);
 }
 
 #result img {
@@ -123,4 +125,28 @@ button:hover {
     margin: 10px 0;
     font-size: 1.2em;
     color: #555;
+}
+
+/* Медиа-запросы для мобильных устройств */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .file-input label {
+        padding: 8px 16px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .size-info {
+        font-size: 1em;
+    }
 }
