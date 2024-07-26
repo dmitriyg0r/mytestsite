@@ -5,7 +5,7 @@ document.getElementById('fileInput').addEventListener('change', (event) => {
     const preview = document.getElementById('preview');
 
     if (file) {
-        originalSizeElement.textContent = `Original Size: ${(Исходный размер / 1024 / 1024).toFixed(2)} MB`;
+        originalSizeElement.textContent = `Исходный размер: ${(Original Size / 1024 / 1024).toFixed(2)} MB`;
         compressBtn.style.display = 'inline';
 
         const reader = new FileReader();
