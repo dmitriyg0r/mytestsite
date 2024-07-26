@@ -1,39 +1,36 @@
-document.getElementById('uploadButton').addEventListener('click', function() {
-    document.getElementById('fileInput').click();
-});
+document.getElementById('compressBtn').addEventListener('click', async () => {
+    const fileInput = document.getElementById('fileInput');
+    const file = fileInput.files[0];
 
-document.getElementById('fileInput').addEventListener('change', function(event) {
-    const files = event.target.files;
-    const gallery = document.getElementById('photoGallery');
-    gallery.innerHTML = ''; // Очищаем галерею перед добавлением новых фото
+    if (!file) {
+        alert('Please select an image file');
+        return;
+    }
 
-    for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        if (file.type.match('image.*')) {
-            const reader = new FileReader();
-            reader.onload = (function(file) {
-                return function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.title = file.name;
-                    img.addEventListener('click', function() {
-                        showPreview(e.target.result);
-                    });
-                    gallery.appendChild(img);
-                };
-            })(file);
-            reader.readAsDataURL(file);
-        }
+    const options = {
+        maxSizeMB: 1, // Максимальный размер в мегабайтах
+        maxWidthOrHeight: 1024, // Максимальная ширина или высота
+        useWebWorker: true
+    };
+
+    try {
+        const compressedFile = await imageCompression(file, options);
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const img = document.createElement('img');
+            img.src = event.target.result;
+            document.getElementById('result').innerHTML = '';
+            document.getElementById('result').appendChild(img);
+            document.getElementById('downloadBtn').style.display = 'inline';
+            document.getElementById('downloadBtn').onclick = () => {
+                const a = document.createElement('a');
+                a.href = img.src;
+                a.download = 'compressed_image.jpg';
+                a.click();
+            };
+        };
+        reader.readAsDataURL(compressedFile);
+    } catch (error) {
+        console.error('Error compressing image:', error);
     }
 });
-
-function showPreview(imageSrc) {
-    const previewContainer = document.getElementById('previewContainer');
-    const previewImage = document.getElementById('previewImage');
-    previewImage.src = imageSrc;
-    previewContainer.style.display = 'flex';
-
-    previewContainer.addEventListener('click', function() {
-        previewContainer.style.display = 'none';
-    });
-}
