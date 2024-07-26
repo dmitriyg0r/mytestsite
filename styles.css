@@ -74,14 +74,14 @@ button:hover {
 }
 
 #preview img {
-    max-width: 50%;
+    max-width: 25%;
     margin-top: 20px;
     border-radius: 5px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 #result img {
-    max-width: 100%;
+    max-width: 50%;
     margin-top: 20px;
     border-radius: 5px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
