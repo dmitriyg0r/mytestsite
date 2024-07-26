@@ -30,6 +30,9 @@ button {
     color: #fff;
     border: none;
     cursor: pointer;
+    font-size: medium;
+    border-radius: 10px;
+    
 }
 
 button:hover {
