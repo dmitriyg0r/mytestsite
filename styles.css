@@ -118,3 +118,9 @@ button:hover {
         transform: rotate(360deg);
     }
 }
+
+.size-info {
+    margin: 10px 0;
+    font-size: 1.2em;
+    color: #555;
+}

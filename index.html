@@ -13,9 +13,11 @@
             <input type="file" id="fileInput" accept="image/*">
             <label for="fileInput">Choose file</label>
         </div>
+        <div id="originalSize" class="size-info"></div>
         <button id="compressBtn">Compress Image</button>
         <div id="loading" class="loading" style="display: none;"></div>
         <div id="result"></div>
+        <div id="compressedSize" class="size-info"></div>
         <button id="downloadBtn" style="display: none;">Download Compressed Image</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@1.0.17/dist/browser-image-compression.js"></script>

@@ -1,3 +1,11 @@
+document.getElementById('fileInput').addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const originalSizeElement = document.getElementById('originalSize');
+        originalSizeElement.textContent = `Original Size: ${(file.size / 1024 / 1024).toFixed(2)} MB`;
+    }
+});
+
 document.getElementById('compressBtn').addEventListener('click', async () => {
     const fileInput = document.getElementById('fileInput');
     const file = fileInput.files[0];
@@ -17,6 +25,7 @@ document.getElementById('compressBtn').addEventListener('click', async () => {
     const loadingElement = document.getElementById('loading');
     loadingElement.style.display = 'inline-block';
     document.getElementById('result').innerHTML = '';
+    document.getElementById('compressedSize').textContent = '';
     document.getElementById('downloadBtn').style.display = 'none';
 
     try {
@@ -27,6 +36,7 @@ document.getElementById('compressBtn').addEventListener('click', async () => {
             img.src = event.target.result;
             document.getElementById('result').innerHTML = '';
             document.getElementById('result').appendChild(img);
+            document.getElementById('compressedSize').textContent = `Compressed Size: ${(compressedFile.size / 1024 / 1024).toFixed(2)} MB`;
             document.getElementById('downloadBtn').style.display = 'inline';
             document.getElementById('downloadBtn').onclick = () => {
                 const a = document.createElement('a');
