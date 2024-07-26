@@ -5,7 +5,7 @@ document.getElementById('fileInput').addEventListener('change', (event) => {
     const preview = document.getElementById('preview');
 
     if (file) {
-        originalSizeElement.textContent = `Original Size: ${(file.size / 1024 / 1024).toFixed(2)} MB`;
+        originalSizeElement.textContent = `Original Size: ${(Исходный размер / 1024 / 1024).toFixed(2)} MB`;
         compressBtn.style.display = 'inline';
 
         const reader = new FileReader();
@@ -63,7 +63,7 @@ document.getElementById('compressBtn').addEventListener('click', async () => {
             img.src = event.target.result;
             document.getElementById('result').innerHTML = '';
             document.getElementById('result').appendChild(img);
-            document.getElementById('compressedSize').textContent = `Compressed Size: ${(compressedFile.size / 1024 / 1024).toFixed(2)} MB`;
+            document.getElementById('compressedSize').textContent = `Сжатый размер: ${(compressedFile.size / 1024 / 1024).toFixed(2)} MB`;
             document.getElementById('downloadBtn').style.display = 'inline';
             document.getElementById('downloadBtn').onclick = () => {
                 const a = document.createElement('a');
