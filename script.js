@@ -1,8 +1,14 @@
 document.getElementById('fileInput').addEventListener('change', (event) => {
     const file = event.target.files[0];
+    const compressBtn = document.getElementById('compressBtn');
+    const originalSizeElement = document.getElementById('originalSize');
+
     if (file) {
-        const originalSizeElement = document.getElementById('originalSize');
         originalSizeElement.textContent = `Original Size: ${(file.size / 1024 / 1024).toFixed(2)} MB`;
+        compressBtn.style.display = 'inline';
+    } else {
+        originalSizeElement.textContent = '';
+        compressBtn.style.display = 'none';
     }
 });
 
