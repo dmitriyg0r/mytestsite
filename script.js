@@ -13,6 +13,12 @@ document.getElementById('compressBtn').addEventListener('click', async () => {
         useWebWorker: true
     };
 
+    // Показать загрузочную анимацию
+    const loadingElement = document.getElementById('loading');
+    loadingElement.style.display = 'inline-block';
+    document.getElementById('result').innerHTML = '';
+    document.getElementById('downloadBtn').style.display = 'none';
+
     try {
         const compressedFile = await imageCompression(file, options);
         const reader = new FileReader();
@@ -32,5 +38,8 @@ document.getElementById('compressBtn').addEventListener('click', async () => {
         reader.readAsDataURL(compressedFile);
     } catch (error) {
         console.error('Error compressing image:', error);
+    } finally {
+        // Скрыть загрузочную анимацию
+        loadingElement.style.display = 'none';
     }
 });
