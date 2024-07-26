@@ -16,6 +16,9 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
                     const img = document.createElement('img');
                     img.src = e.target.result;
                     img.title = file.name;
+                    img.addEventListener('click', function() {
+                        showPreview(e.target.result);
+                    });
                     gallery.appendChild(img);
                 };
             })(file);
@@ -23,3 +26,14 @@ document.getElementById('fileInput').addEventListener('change', function(event) 
         }
     }
 });
+
+function showPreview(imageSrc) {
+    const previewContainer = document.getElementById('previewContainer');
+    const previewImage = document.getElementById('previewImage');
+    previewImage.src = imageSrc;
+    previewContainer.style.display = 'flex';
+
+    previewContainer.addEventListener('click', function() {
+        previewContainer.style.display = 'none';
+    });
+}
