@@ -177,27 +177,3 @@ button:hover {
     line-height: 30px;
     color: white;
 }
-
-/* Медиа-запросы для мобильных устройств */
-@media (max-width: 600px) {
-    .container {
-        padding: 20px;
-    }
-
-    h1 {
-        font-size: 2em;
-    }
-
-    .file-input label {
-        padding: 8px 16px;
-    }
-
-    button {
-        padding: 10px 20px;
-        font-size: 14px;
-    }
-
-    .size-info {
-        font-size: 1em;
-    }
-}
