@@ -69,8 +69,8 @@ compressBtn.addEventListener('click', async () => {
                 const img = document.createElement('img');
                 img.src = event.target.result;
                 resultElement.appendChild(img);
-                originalSizeElement.textContent += `Оригинальный размер ${i + 1}: ${(file.size / 1024 / 1024).toFixed(2)} MB\n`;
-                compressedSizeElement.textContent += `Сжатый размер ${i + 1}: ${(compressedFile.size / 1024 / 1024).toFixed(2)} MB\n`;
+                originalSizeElement.textContent = `размер до сжатия: ${(file.size / 1024 / 1024).toFixed(2)} MB`;
+                compressedSizeElement.textContent = `Сжатый размер: ${(compressedFile.size / 1024 / 1024).toFixed(2)} MB`;
                 newimage.style.display = 'inline';
                 newimage.onclick = () => {
                     location.reload();
