@@ -73,6 +73,33 @@ button:hover {
     transform: scale(1.05);
 }
 
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+#button-1 {
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3498db;
+    color: white;
+    transition: background-color 0.3s, transform 0.3s;
+}
+#button-2 {
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3498db;
+    color: white;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
 #preview img {
     max-width: 25%;
     margin-top: 20px;
