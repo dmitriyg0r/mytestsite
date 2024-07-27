@@ -40,9 +40,7 @@ h1 {
     height: 100%;
     cursor: pointer;
 }
-.hidden {
-    display: none;
-}
+
 .file-input label {
     display: inline-block;
     padding: 10px 20px;
@@ -58,7 +56,7 @@ h1 {
     transform: scale(1.05);
 }
 
-.button {
+button {
     padding: 12px 24px;
     font-size: 16px;
     cursor: pointer;
@@ -70,7 +68,7 @@ h1 {
     transition: background-color 0.3s, transform 0.3s;
 }
 
-.button:hover {
+button:hover {
     background-color: #2980b9;
     transform: scale(1.05);
 }
@@ -79,9 +77,30 @@ h1 {
     display: flex;
     justify-content: space-between;
 }
+#button-1 {
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3498db;
+    color: white;
+    transition: background-color 0.3s, transform 0.3s;
+}
+#button-2 {
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3498db;
+    color: white;
+    transition: background-color 0.3s, transform 0.3s;
+}
 
-#preview img,
-#result img {
+#preview img {
     max-width: 25%;
     margin-top: 20px;
     border-radius: 5px;
@@ -90,6 +109,9 @@ h1 {
 
 #result img {
     max-width: 50%;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .loading {
@@ -156,6 +178,7 @@ h1 {
     color: white;
 }
 
+/* Медиа-запросы для мобильных устройств */
 @media (max-width: 600px) {
     .container {
         padding: 20px;
@@ -165,9 +188,12 @@ h1 {
         font-size: 2em;
     }
 
-    .file-input label,
-    .button {
+    .file-input label {
         padding: 8px 16px;
+    }
+
+    button {
+        padding: 10px 20px;
         font-size: 14px;
     }
 
