@@ -7,6 +7,7 @@ const loadingElement = document.getElementById('loading');
 const resultElement = document.getElementById('result');
 const compressedSizeElement = document.getElementById('compressedSize');
 const downloadBtn = document.getElementById('downloadBtn');
+const newimage = document.getElementById('newimage');
 
 fileInput.addEventListener('change', (event) => {
     const files = event.target.files;
@@ -56,6 +57,7 @@ compressBtn.addEventListener('click', async () => {
     resultElement.innerHTML = '';
     compressedSizeElement.textContent = '';
     downloadBtn.style.display = 'none';
+    newimage.style.display = 'none';
 
     try {
         for (const file of files) {
@@ -66,6 +68,10 @@ compressBtn.addEventListener('click', async () => {
                 img.src = event.target.result;
                 resultElement.appendChild(img);
                 compressedSizeElement.textContent = `Сжатый размер: ${(compressedFile.size / 1024 / 1024).toFixed(2)} MB`;
+                newimage.style.display = 'inline';
+                newimage.onclick = () => {
+                    location.reload();
+                };
                 downloadBtn.style.display = 'inline';
                 downloadBtn.onclick = () => {
                     const a = document.createElement('a');
