@@ -177,3 +177,15 @@ button:hover {
     line-height: 30px;
     color: white;
 }
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+    h1 {
+        font-size: 2em;
+    }
+    button, #button-1, #button-2 {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
