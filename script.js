@@ -64,6 +64,10 @@ document.getElementById('compressBtn').addEventListener('click', async () => {
             document.getElementById('result').innerHTML = '';
             document.getElementById('result').appendChild(img);
             document.getElementById('compressedSize').textContent = `Сжатый размер: ${(compressedFile.size / 1024 / 1024).toFixed(2)} MB`;
+            document.getElementById('newimage').style.display = 'inline';
+            document.getElementById('newimage').onclick = () => {
+                location.reload();
+            };
             document.getElementById('downloadBtn').style.display = 'inline';
             document.getElementById('downloadBtn').onclick = () => {
                 const a = document.createElement('a');
