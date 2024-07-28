@@ -13,7 +13,11 @@ fileInput.addEventListener('change', (event) => {
     const files = event.target.files;
 
     if (files.length > 0) {
-        originalSizeElement.textContent = `Выбрано изображений: ${files.length}`;
+        let totalSize = 0;
+        for (const file of files) {
+            totalSize += file.size;
+        }
+        originalSizeElement.textContent = `Выбрано изображений: ${files.length}, общий размер: ${(totalSize / 1024 / 1024).toFixed(2)} MB`;
         compressBtn.style.display = 'inline';
 
         preview.innerHTML = '';
@@ -61,30 +65,42 @@ compressBtn.addEventListener('click', async () => {
     newimage.style.display = 'none';
 
     try {
+        const compressedFiles = [];
         for (const file of files) {
             const compressedFile = await imageCompression(file, options);
+            compressedFiles.push(compressedFile);
+        }
+
+        resultElement.innerHTML = '';
+        let totalOriginalSize = 0;
+        let totalCompressedSize = 0;
+        for (let i = 0; i < files.length; i++) {
             const reader = new FileReader();
             reader.onload = function(event) {
                 const img = document.createElement('img');
                 img.src = event.target.result;
                 resultElement.appendChild(img);
-                originalSizeElement.textContent = `Размер до сжатия: ${(file.size / 1024 / 1024).toFixed(2)} MB`;
-                compressedSizeElement.textContent = `Сжатый размер: ${(compressedFile.size / 1024 / 1024).toFixed(2)} MB`;
+                totalOriginalSize += files[i].size;
+                totalCompressedSize += compressedFiles[i].size;
+                originalSizeElement.textContent = `Размер до сжатия: ${(totalOriginalSize / 1024 / 1024).toFixed(2)} MB`;
+                compressedSizeElement.textContent = `Сжатый размер: ${(totalCompressedSize / 1024 / 1024).toFixed(2)} MB`;
                 newimage.style.display = 'inline';
                 newimage.onclick = () => {
                     location.reload();
                 };
                 downloadBtn.style.display = 'inline';
                 downloadBtn.onclick = () => {
-                    const a = document.createElement('a');
-                    a.href = img.src;
-                    a.download = 'compressed_image.jpg';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
+                    for (let i = 0; i < compressedFiles.length; i++) {
+                        const a = document.createElement('a');
+                        a.href = URL.createObjectURL(compressedFiles[i]);
+                        a.download = `compressed_image_${i + 1}.jpg`;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                    }
                 };
             };
-            reader.readAsDataURL(compressedFile);
+            reader.readAsDataURL(compressedFiles[i]);
         }
     } catch (error) {
         console.error('Error compressing image:', error);
