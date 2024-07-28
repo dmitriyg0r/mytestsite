@@ -17,7 +17,7 @@ fileInput.addEventListener('change', (event) => {
         for (const file of files) {
             totalSize += file.size;
         }
-        originalSizeElement.textContent = `Выбрано изображений: ${files.length}, общий размер: ${(totalSize / 1024 / 1024).toFixed(2)} MB`;
+        originalSizeElement.textContent = `Выбрано изображений: ${files.length}\n общий размер: ${(totalSize / 1024 / 1024).toFixed(2)} MB`;
         compressBtn.style.display = 'inline';
 
         preview.innerHTML = '';
