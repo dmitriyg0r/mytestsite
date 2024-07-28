@@ -6,7 +6,6 @@ const progressBar = document.getElementById('progressBar');
 const loadingElement = document.getElementById('loading');
 const resultElement = document.getElementById('result');
 const compressedSizeElement = document.getElementById('compressedSize');
-const originalsize = document.getElementById('originalsize');
 const downloadBtn = document.getElementById('downloadBtn');
 const newimage = document.getElementById('newimage');
 
@@ -69,7 +68,7 @@ compressBtn.addEventListener('click', async () => {
                 const img = document.createElement('img');
                 img.src = event.target.result;
                 resultElement.appendChild(img);
-                originalSizeElement.textContent = `размер до сжатия: ${(file.size / 1024 / 1024).toFixed(2)} MB`;
+                originalSizeElement.textContent = `Размер до сжатия: ${(file.size / 1024 / 1024).toFixed(2)} MB`;
                 compressedSizeElement.textContent = `Сжатый размер: ${(compressedFile.size / 1024 / 1024).toFixed(2)} MB`;
                 newimage.style.display = 'inline';
                 newimage.onclick = () => {
@@ -80,7 +79,9 @@ compressBtn.addEventListener('click', async () => {
                     const a = document.createElement('a');
                     a.href = img.src;
                     a.download = 'compressed_image.jpg';
+                    document.body.appendChild(a);
                     a.click();
+                    document.body.removeChild(a);
                 };
             };
             reader.readAsDataURL(compressedFile);
