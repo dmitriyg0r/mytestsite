@@ -34,7 +34,7 @@ body {
     list-style: none;
     background: rgba(255, 255, 255, 0.2);
     animation: animate 25s linear infinite;
-    bottom: auto;
+    bottom: -300px;
     z-index: -10000;
 }
 
