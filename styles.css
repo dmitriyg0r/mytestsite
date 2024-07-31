@@ -42,15 +42,14 @@ body {
 }
 
 .container {
-    overflow-y: auto; /* Включает вертикальную прокрутку */
     text-align: center;
     background: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     width: 90%;
-    max-width: 800px; /* Устанавливаем максимальную ширину */
-    max-height: 600px; /* Устанавливаем максимальную высоту */
+    max-width: 100%; /* Устанавливаем максимальную ширину */
+    max-height: 100%; /* Устанавливаем максимальную высоту */
     animation: fadeIn 1s ease-in-out;
 }
 
