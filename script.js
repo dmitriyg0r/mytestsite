@@ -8,6 +8,7 @@ const resultElement = document.getElementById('result');
 const compressedSizeElement = document.getElementById('compressedSize');
 const downloadBtn = document.getElementById('downloadBtn');
 const newimage = document.getElementById('newimage');
+const video = document.getElementById('video')
 
 fileInput.addEventListener('change', (event) => {
     const files = event.target.files;

@@ -48,7 +48,8 @@ body {
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     width: 90%;
-    max-width: 500px;
+    max-width: auto;
+    max-height: auto;
     animation: fadeIn 1s ease-in-out;
 }
 
