@@ -1,14 +1,13 @@
 body {
-    overflow-y: auto;
+    overflow-y: auto; /* Оставляем для вертикальной прокрутки */
     font-family: 'Roboto', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100vh; /* Устанавливаем высоту на 100% видимой области */
     margin: 0;
     background: linear-gradient(135deg, #71b7e6, #9b59b6);
     color: #333;
-    overflow: hidden;
 }
 
 .tab {
