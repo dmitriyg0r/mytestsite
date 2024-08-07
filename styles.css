@@ -70,6 +70,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 1000;
 }
 
 .tabbutton {
@@ -96,8 +97,9 @@ body {
     border-radius: 10px;
     box-shadow: 0 10px 20px var(--shadow-color);
     width: 90%;
-    max-width: 100%;
+    max-width: 800px;
     animation: fadeIn 1s ease-in-out;
+    margin-top: 80px;
 }
 
 @keyframes fadeIn {
@@ -169,7 +171,7 @@ button:hover {
 }
 
 #preview img, #result img {
-    max-width: 10%;
+    max-width: 15%;
     margin-top: 10px;
     border-radius: 5px;
     box-shadow: 0 5px 10px var(--shadow-color);

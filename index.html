@@ -8,27 +8,27 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <nav class="tab">
+    <nav class="tab" aria-label="Tabs for compression options">
         <button id="video" class="tabbutton" aria-label="Сжать видео">сжатие видео</button>
         <button id="dock" class="tabbutton" aria-label="Сжать документ">сжатие документа</button>
         <button id="image" class="tabbutton" aria-label="Сжать изображение">сжатие изображения</button>
     </nav>
     <main class="container">
         <!-- Контейнер для сжатия изображений -->
-        <div id="imageContainer" class="content-container">
+        <div id="imageContainer" class="content-container" aria-live="polite">
             <h1>Сжатие изображения</h1>
             <section class="file-input">
                 <input type="file" id="fileInput" accept="image/*" multiple aria-label="Выберите изображения">
-                <label for="fileInput">Выберете изображения</label>
+                <label for="fileInput" class="file-label">Выберете изображения</label>
             </section>
-            <div id="preview"></div>
+            <div id="preview" class="preview-area"></div>
             <div id="originalSize" class="size-info"></div>
-            <button id="compressBtn" style="display: none;">Сжать фото</button>
-            <div id="progressBar" style="display: none;">
-                <div id="progress"></div>
+            <button id="compressBtn" class="compress-btn" style="display: none;">Сжать фото</button>
+            <div id="progressBar" class="progress-bar" style="display: none;">
+                <div id="progress" class="progress"></div>
             </div>
             <div id="loading" class="loading" role="status" style="display: none;"></div>
-            <div id="result"></div>
+            <div id="result" class="result-area"></div>
             <div id="compressedSize" class="size-info"></div>
             <div class="button-container">
                 <button class="button-1" id="newimage" style="display: none;">Новые изображения</button>
@@ -36,20 +36,20 @@
             </div>
         </div>
         <!-- Контейнер для сжатия документов -->
-        <div id="documentContainer" class="content-container" style="display: none;">
+        <div id="documentContainer" class="content-container" style="display: none;" aria-live="polite">
             <h1>Сжатие документа</h1>
             <section class="file-input">
                 <input type="file" id="documentInput" accept=".doc,.docx,.pdf" multiple aria-label="Выберите документы">
-                <label for="documentInput">Выберете документы</label>
+                <label for="documentInput" class="file-label">Выберете документы</label>
             </section>
-            <div id="documentPreview"></div>
+            <div id="documentPreview" class="preview-area"></div>
             <div id="documentOriginalSize" class="size-info"></div>
-            <button id="compressDocumentBtn" style="display: none;">Сжать документы</button>
-            <div id="documentProgressBar" style="display: none;">
-                <div id="documentProgress"></div>
+            <button id="compressDocumentBtn" class="compress-btn" style="display: none;">Сжать документы</button>
+            <div id="documentProgressBar" class="progress-bar" style="display: none;">
+                <div id="documentProgress" class="progress"></div>
             </div>
             <div id="documentLoading" class="loading" role="status" style="display: none;"></div>
-            <div id="documentResult"></div>
+            <div id="documentResult" class="result-area"></div>
             <div id="documentCompressedSize" class="size-info"></div>
             <div class="button-container">
                 <button class="button-1" id="newDocument" style="display: none;">Новые документы</button>
