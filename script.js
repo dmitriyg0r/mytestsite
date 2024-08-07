@@ -9,6 +9,8 @@ const compressedSizeElement = document.getElementById('compressedSize');
 const downloadBtn = document.getElementById('downloadBtn');
 const newimage = document.getElementById('newimage');
 const video = document.getElementById('video');
+const dock = document.getElementById('dock');
+const image = document.getElementById('image');
 
 fileInput.addEventListener('change', (event) => {
     const files = event.target.files;
@@ -64,6 +66,10 @@ compressBtn.addEventListener('click', async () => {
     originalSizeElement.textContent = '';
     downloadBtn.style.display = 'none';
     newimage.style.display = 'none';
+    video.style.display = 'none';
+    dock.style.display = 'none';
+    image.style.display = 'none';
+
 
     try {
         const compressedFiles = [];
