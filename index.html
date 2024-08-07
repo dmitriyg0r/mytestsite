@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,29 +8,53 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="tab">
-        <button id="video" class="tabbutton">сжатие видео</button>
-        <button id="dock" class="tabbutton">сжатие документа</button>
-        <button id="image" class="tabbutton">сжатие изображения</button>
-    </div>
-    <div class="container">
-        <h1>Сжатие изображения</h1>
-        <div class="file-input">
-            <input type="file" id="fileInput" accept="image/*" multiple>
-            <label for="fileInput">Выберете изображения</label>
+    <nav class="tab">
+        <button id="video" class="tabbutton" aria-label="Сжать видео">сжатие видео</button>
+        <button id="dock" class="tabbutton" aria-label="Сжать документ">сжатие документа</button>
+        <button id="image" class="tabbutton" aria-label="Сжать изображение">сжатие изображения</button>
+    </nav>
+    <main class="container">
+        <!-- Контейнер для сжатия изображений -->
+        <div id="imageContainer" class="content-container">
+            <h1>Сжатие изображения</h1>
+            <section class="file-input">
+                <input type="file" id="fileInput" accept="image/*" multiple aria-label="Выберите изображения">
+                <label for="fileInput">Выберете изображения</label>
+            </section>
+            <div id="preview"></div>
+            <div id="originalSize" class="size-info"></div>
+            <button id="compressBtn" style="display: none;">Сжать фото</button>
+            <div id="progressBar" style="display: none;">
+                <div id="progress"></div>
+            </div>
+            <div id="loading" class="loading" role="status" style="display: none;"></div>
+            <div id="result"></div>
+            <div id="compressedSize" class="size-info"></div>
+            <div class="button-container">
+                <button class="button-1" id="newimage" style="display: none;">Новые изображения</button>
+                <button class="button-2" id="downloadBtn" style="display: none;">Скачать сжатые изображения</button>
+            </div>
         </div>
-        <div id="preview"></div>
-        <div id="originalSize" class="size-info"></div>
-        <button id="compressBtn" style="display: none;">Сжать фото</button>
-        <div id="progressBar" style="display: none;">
-            <div id="progress"></div>
-        </div>
-        <div id="loading" class="loading" style="display: none;"></div>
-        <div id="result"></div>
-        <div id="compressedSize" class="size-info"></div>
-        <div class="button-container">
-            <button class="button-1" id="newimage" style="display: none;">Новые изображения</button>
-            <button class="button-2" id="downloadBtn" style="display: none;">Скачать сжатые изображения</button>
+        <!-- Контейнер для сжатия документов -->
+        <div id="documentContainer" class="content-container" style="display: none;">
+            <h1>Сжатие документа</h1>
+            <section class="file-input">
+                <input type="file" id="documentInput" accept=".doc,.docx,.pdf" multiple aria-label="Выберите документы">
+                <label for="documentInput">Выберете документы</label>
+            </section>
+            <div id="documentPreview"></div>
+            <div id="documentOriginalSize" class="size-info"></div>
+            <button id="compressDocumentBtn" style="display: none;">Сжать документы</button>
+            <div id="documentProgressBar" style="display: none;">
+                <div id="documentProgress"></div>
+            </div>
+            <div id="documentLoading" class="loading" role="status" style="display: none;"></div>
+            <div id="documentResult"></div>
+            <div id="documentCompressedSize" class="size-info"></div>
+            <div class="button-container">
+                <button class="button-1" id="newDocument" style="display: none;">Новые документы</button>
+                <button class="button-2" id="downloadDocumentBtn" style="display: none;">Скачать сжатые документы</button>
+            </div>
         </div>
         <ul class="circles">
             <li></li>
@@ -44,7 +68,7 @@
             <li></li>
             <li></li>
         </ul>
-    </div>
+    </main>
     <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@1.0.17/dist/browser-image-compression.js"></script>
     <script src="script.js"></script>
 </body>
