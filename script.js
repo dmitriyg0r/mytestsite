@@ -1,71 +1,71 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const fileInput = document.getElementById('fileInput');
-    const compressBtn = document.getElementById('compressBtn');
-    const originalSizeElement = document.getElementById('originalSize');
-    const preview = document.getElementById('preview');
-    const progressBar = document.getElementById('progressBar');
-    const loadingElement = document.getElementById('loading');
-    const resultElement = document.getElementById('result');
-    const compressedSizeElement = document.getElementById('compressedSize');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const newimage = document.getElementById('newimage');
-    const videoButton = document.getElementById('video');
-    const dockButton = document.getElementById('dock');
-    const imageButton = document.getElementById('image');
-    const imageContainer = document.getElementById('imageContainer');
-    const documentContainer = document.getElementById('documentContainer');
+    const elements = {
+        fileInput: document.getElementById('fileInput'),
+        compressBtn: document.getElementById('compressBtn'),
+        originalSize: document.getElementById('originalSize'),
+        preview: document.getElementById('preview'),
+        progressBar: document.getElementById('progressBar'),
+        loading: document.getElementById('loading'),
+        result: document.getElementById('result'),
+        compressedSize: document.getElementById('compressedSize'),
+        downloadBtn: document.getElementById('downloadBtn'),
+        newimage: document.getElementById('newimage'),
+        videoButton: document.getElementById('video'),
+        dockButton: document.getElementById('dock'),
+        imageButton: document.getElementById('image'),
+        imageContainer: document.getElementById('imageContainer'),
+        documentContainer: document.getElementById('documentContainer')
+    };
 
-    function showContainer(container) {
-        imageContainer.style.display = 'none';
-        documentContainer.style.display = 'none';
+    const showContainer = (container) => {
+        elements.imageContainer.style.display = 'none';
+        elements.documentContainer.style.display = 'none';
         container.style.display = 'block';
-    }
+    };
 
-    videoButton.addEventListener('click', () => {
+    const updateProgressBar = (progress) => {
+        elements.progressBar.style.width = `${progress}%`;
+        elements.progressBar.textContent = `${progress}%`;
+    };
+
+    elements.videoButton.addEventListener('click', () => {
         alert('Сжатие видео еще не реализовано');
     });
 
-    dockButton.addEventListener('click', () => {
-        showContainer(documentContainer);
+    elements.dockButton.addEventListener('click', () => {
+        showContainer(elements.documentContainer);
     });
 
-    imageButton.addEventListener('click', () => {
-        showContainer(imageContainer);
+    elements.imageButton.addEventListener('click', () => {
+        showContainer(elements.imageContainer);
     });
 
-    fileInput.addEventListener('change', (event) => {
+    elements.fileInput.addEventListener('change', (event) => {
         const files = event.target.files;
-
+        elements.preview.innerHTML = '';
         if (files.length > 0) {
-            let totalSize = 0;
-            for (const file of files) {
-                totalSize += file.size;
-            }
-            originalSizeElement.textContent = `Выбрано изображений: ${files.length}`;
-            compressBtn.style.display = 'inline';
+            elements.originalSize.textContent = `Выбрано изображений: ${files.length}`;
+            elements.compressBtn.style.display = 'inline';
 
-            preview.innerHTML = '';
             for (const file of files) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
+                reader.onload = (e) => {
                     const img = document.createElement('img');
                     img.src = e.target.result;
-                    preview.appendChild(img);
+                    elements.preview.appendChild(img);
                 };
                 reader.readAsDataURL(file);
             }
         } else {
-            originalSizeElement.textContent = '';
-            compressBtn.style.display = 'none';
-            preview.innerHTML = '';
+            elements.originalSize.textContent = '';
+            elements.compressBtn.style.display = 'none';
         }
     });
 
-    compressBtn.addEventListener('click', async () => {
-        const files = fileInput.files;
-
+    elements.compressBtn.addEventListener('click', async () => {
+        const files = elements.fileInput.files;
         if (files.length === 0) {
-            alert('Please select image files');
+            alert('Выберите файлы изображений');
             return;
         }
 
@@ -73,66 +73,58 @@ document.addEventListener('DOMContentLoaded', () => {
             maxSizeMB: 1,
             maxWidthOrHeight: 1024,
             useWebWorker: true,
-            onProgress: (progress) => {
-                progressBar.style.width = `${progress}%`;
-                progressBar.textContent = `${progress}%`;
-            }
+            onProgress: updateProgressBar
         };
 
-        progressBar.style.display = 'block';
-        compressBtn.style.display = 'none';
-        loadingElement.style.display = 'inline-block';
-        resultElement.innerHTML = '';
-        compressedSizeElement.textContent = '';
-        originalSizeElement.textContent = '';
-        downloadBtn.style.display = 'none';
-        newimage.style.display = 'none';
+        elements.progressBar.style.display = 'block';
+        elements.compressBtn.style.display = 'none';
+        elements.loading.style.display = 'inline-block';
+        elements.result.innerHTML = '';
+        elements.compressedSize.textContent = '';
+        elements.downloadBtn.style.display = 'none';
+        elements.newimage.style.display = 'none';
 
         try {
-            const compressedFiles = [];
-            for (const file of files) {
-                const compressedFile = await imageCompression(file, options);
-                compressedFiles.push(compressedFile);
-            }
+            const compressedFiles = await Promise.all(Array.from(files).map(file => imageCompression(file, options)));
 
-            resultElement.innerHTML = '';
-            let totalOriginalSize = 0;
-            let totalCompressedSize = 0;
-            for (let i = 0; i < files.length; i++) {
+            let totalOriginalSize = Array.from(files).reduce((acc, file) => acc + file.size, 0);
+            let totalCompressedSize = compressedFiles.reduce((acc, file) => acc + file.size, 0);
+
+            elements.originalSize.textContent = `Размер до сжатия: ${(totalOriginalSize / 1024 / 1024).toFixed(2)} MB`;
+            elements.compressedSize.textContent = `Сжатый размер: ${(totalCompressedSize / 1024 / 1024).toFixed(2)} MB`;
+
+            compressedFiles.forEach((file, i) => {
                 const reader = new FileReader();
-                reader.onload = function(event) {
+                reader.onload = (event) => {
                     const img = document.createElement('img');
                     img.src = event.target.result;
-                    resultElement.appendChild(img);
-                    totalOriginalSize += files[i].size;
-                    totalCompressedSize += compressedFiles[i].size;
-                    originalSizeElement.textContent = `Размер до сжатия: ${(totalOriginalSize / 1024 / 1024).toFixed(2)} MB`;
-                    compressedSizeElement.textContent = `Сжатый размер: ${(totalCompressedSize / 1024 / 1024).toFixed(2)} MB`;
-                    newimage.style.display = 'inline';
-                    newimage.onclick = () => {
-                        location.reload();
-                    };
-                    downloadBtn.style.display = 'inline';
-                    downloadBtn.onclick = () => {
-                        for (let i = 0; i < compressedFiles.length; i++) {
-                            const a = document.createElement('a');
-                            a.href = URL.createObjectURL(compressedFiles[i]);
-                            a.download = `compressed_image_${i + 1}.jpg`;
-                            document.body.appendChild(a);
-                            a.click();
-                            document.body.removeChild(a);
-                        }
-                    };
+                    elements.result.appendChild(img);
                 };
-                reader.readAsDataURL(compressedFiles[i]);
-            }
+                reader.readAsDataURL(file);
+            });
+
+            elements.newimage.style.display = 'inline';
+            elements.newimage.onclick = () => location.reload();
+
+            elements.downloadBtn.style.display = 'inline';
+            elements.downloadBtn.onclick = () => {
+                compressedFiles.forEach((file, i) => {
+                    const a = document.createElement('a');
+                    a.href = URL.createObjectURL(file);
+                    a.download = `compressed_image_${i + 1}.jpg`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                });
+            };
+
         } catch (error) {
-            console.error('Error compressing image:', error);
-            alert('Failed to compress image. Please try again.');
+            console.error('Ошибка при сжатии изображений:', error);
+            alert('Ошибка при сжатии изображений. Попробуйте еще раз.');
         } finally {
-            loadingElement.style.display = 'none';
-            progressBar.style.display = 'none';
-            compressBtn.style.display = 'inline';
+            elements.loading.style.display = 'none';
+            elements.progressBar.style.display = 'none';
+            elements.compressBtn.style.display = 'inline';
         }
     });
 });
